@@ -500,6 +500,12 @@ h1, h2, h3, h4 {
     letter-spacing: -0.01em;
     line-height: 1.1;
 }
+.stat-star {
+    font-size: 0.78em;
+    margin-left: 0.18em;
+    vertical-align: 0.08em;
+    letter-spacing: 0;
+}
 .stat-label {
     font-family: var(--font-mono);
     font-size: 0.62rem;
@@ -979,13 +985,12 @@ h1, h2, h3, h4 {
 }
 .site-footer .footer-inner {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     gap: 1rem;
-    /* Reserve room on the right so the floating back-to-top button
-       never sits on top of the copyright line. */
-    padding-right: calc(46px + 2rem);
+    text-align: center;
+    padding-right: 0;
 }
 .site-footer .footer-mark {
     font-family: var(--font-mono);
