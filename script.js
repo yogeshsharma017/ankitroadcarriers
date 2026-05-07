@@ -77,6 +77,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Contact map switching
+    const contactMap = document.getElementById('contactMap');
+    const mapWrapper = document.querySelector('.map-wrapper');
+    const officeMapLinks = document.querySelectorAll('.office-map-link');
+    if (contactMap && mapWrapper && officeMapLinks.length) {
+        officeMapLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const nextSrc = link.dataset.mapSrc;
+                if (!nextSrc) return;
+
+                e.preventDefault();
+
+                officeMapLinks.forEach(item => item.classList.toggle('is-active', item === link));
+                if (contactMap.getAttribute('src') === nextSrc) return;
+
+                mapWrapper.classList.add('is-changing');
+                window.setTimeout(() => {
+                    contactMap.setAttribute('src', nextSrc);
+                }, 160);
+            });
+        });
+
+        contactMap.addEventListener('load', () => {
+            mapWrapper.classList.remove('is-changing');
+        });
+    }
+
     // Shrinking Navbar on Scroll
     const navbar = document.querySelector('.navbar');
     window.addEventListener('scroll', () => {
