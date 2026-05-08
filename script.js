@@ -157,14 +157,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const open = navWrap.classList.toggle('is-open');
             navToggle.classList.toggle('is-open', open);
             navToggle.setAttribute('aria-expanded', String(open));
-            navbar.classList.toggle('nav-open', open);
         });
         navWrap.querySelectorAll('a').forEach(a => {
             a.addEventListener('click', () => {
                 navWrap.classList.remove('is-open');
                 navToggle.classList.remove('is-open');
                 navToggle.setAttribute('aria-expanded', 'false');
-                navbar.classList.remove('nav-open');
             });
         });
     }
@@ -209,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 requestAnimationFrame(() => {
                     allSlides.forEach(s => s.classList.remove('is-transitioning'));
                 });
-            }, 300);
+            }, 800);
         }
 
         function goNext() {
@@ -222,12 +220,12 @@ document.addEventListener('DOMContentLoaded', () => {
             updateCarousel();
         }
 
-        // Auto-play every 4 seconds
-        let autoPlay = setInterval(goNext, 4000);
+        // Auto-play every 5 seconds
+        let autoPlay = setInterval(goNext, 5000);
 
         function resetAutoPlay() {
             clearInterval(autoPlay);
-            autoPlay = setInterval(goNext, 4000);
+            autoPlay = setInterval(goNext, 5000);
         }
 
         nextBtn.addEventListener('click', () => { goNext(); resetAutoPlay(); });
@@ -237,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         carouselWrapper.addEventListener('mouseenter', () => clearInterval(autoPlay));
         carouselWrapper.addEventListener('mouseleave', () => {
-            autoPlay = setInterval(goNext, 4000);
+            autoPlay = setInterval(goNext, 5000);
         });
 
         // Touch swipe support
@@ -251,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (Math.abs(diff) > 50) {
                 diff > 0 ? goNext() : goPrev();
             }
-            autoPlay = setInterval(goNext, 4000);
+            autoPlay = setInterval(goNext, 5000);
         }, { passive: true });
 
         // Initial load (no animation)
