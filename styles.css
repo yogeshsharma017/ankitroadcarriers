@@ -111,6 +111,13 @@ html[lang="hi"] .company-tagline  { white-space: normal; overflow: visible; text
     transform: scaleX(0);
     transform-origin: left center;
     will-change: transform;
+    visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.lang-wipe.wipe-in,
+.lang-wipe.wipe-out {
+    visibility: visible;
 }
 
 /* Thin amber accent line at the leading edge of the wipe */
@@ -161,6 +168,9 @@ html.lang-switching .lang-toggle {
 
 @media (prefers-reduced-motion: reduce) {
     .lang-wipe { display: none; }
+    html.lang-switching .lang-toggle {
+        transition: none;
+    }
 }
 
 img { display: block; max-width: 100%; }

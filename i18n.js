@@ -176,25 +176,32 @@
         const wipe = document.getElementById('langWipe');
         if (!wipe) { swap(); return; }
 
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            swap();
+            return;
+        }
+
         root.classList.add('lang-switching');
 
-        // Phase 1: wipe sweeps in from left
-        wipe.classList.remove('wipe-out');
-        wipe.classList.add('wipe-in');
+        const onWipeOutEnd = () => {
+            wipe.classList.remove('wipe-out');
+            root.classList.remove('lang-switching');
+        };
 
-        window.setTimeout(() => {
+        const onWipeInEnd = () => {
             // Text swaps while fully covered
             swap();
 
             // Phase 2: wipe sweeps out to right
             wipe.classList.remove('wipe-in');
             wipe.classList.add('wipe-out');
+            wipe.addEventListener('animationend', onWipeOutEnd, { once: true });
+        };
 
-            window.setTimeout(() => {
-                wipe.classList.remove('wipe-out');
-                root.classList.remove('lang-switching');
-            }, 400);
-        }, 400);
+        // Phase 1: wipe sweeps in from left
+        wipe.classList.remove('wipe-out');
+        wipe.classList.add('wipe-in');
+        wipe.addEventListener('animationend', onWipeInEnd, { once: true });
     }
 
     function init() {
@@ -204,6 +211,8 @@
         const toggle = document.getElementById('langToggle');
         if (toggle) {
             toggle.addEventListener('click', (e) => {
+                if (document.documentElement.classList.contains('lang-switching')) return;
+
                 const current = document.documentElement.getAttribute('data-lang') || 'en';
                 const next = current === 'hi' ? 'en' : 'hi';
                 localStorage.setItem(STORAGE_KEY, next);
