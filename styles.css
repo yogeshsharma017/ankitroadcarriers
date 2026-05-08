@@ -533,6 +533,8 @@ h1, h2, h3, h4 {
     overflow: hidden;
     transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
     position: relative;
+    min-height: 390px;
+    perspective: 1200px;
 }
 .service-card::before {
     content: "";
@@ -543,6 +545,8 @@ h1, h2, h3, h4 {
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 350ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    z-index: 2;
+    pointer-events: none;
 }
 .service-card:hover {
     transform: translateY(-4px);
@@ -550,6 +554,31 @@ h1, h2, h3, h4 {
     border-color: rgba(245, 158, 11, 0.4);
 }
 .service-card:hover::before { transform: scaleX(1); }
+
+.service-card-inner {
+    position: relative;
+    min-height: 390px;
+    transform-style: preserve-3d;
+    transition: transform 650ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.service-card.is-flipped .service-card-inner { transform: rotateY(180deg); }
+
+.service-card-face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.service-card-back {
+    justify-content: center;
+    padding: 1.75rem;
+    transform: rotateY(180deg);
+}
 
 .service-icon {
     width: 100%;
@@ -582,6 +611,18 @@ h1, h2, h3, h4 {
 .service-card p {
     color: var(--text-muted);
     font-size: 0.95rem;
+}
+.service-card-back p {
+    margin-bottom: 1.5rem;
+}
+.service-card-back .service-close,
+.service-card-front .service-read-more {
+    align-self: flex-start;
+    margin-top: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .service-card-inner { transition: none; }
 }
 
 

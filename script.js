@@ -59,6 +59,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
     revealElements.forEach(el => revealObserver.observe(el));
 
+    // Service card flip buttons
+    document.querySelectorAll('.service-card').forEach(card => {
+        const readMoreBtn = card.querySelector('.service-read-more');
+        const closeBtn = card.querySelector('.service-close');
+        if (!readMoreBtn || !closeBtn) return;
+
+        closeBtn.setAttribute('tabindex', '-1');
+
+        readMoreBtn.addEventListener('click', () => {
+            card.classList.add('is-flipped');
+            readMoreBtn.setAttribute('aria-expanded', 'true');
+            readMoreBtn.setAttribute('tabindex', '-1');
+            closeBtn.removeAttribute('tabindex');
+            closeBtn.focus();
+        });
+
+        closeBtn.addEventListener('click', () => {
+            card.classList.remove('is-flipped');
+            readMoreBtn.setAttribute('aria-expanded', 'false');
+            closeBtn.setAttribute('tabindex', '-1');
+            readMoreBtn.removeAttribute('tabindex');
+            readMoreBtn.focus();
+        });
+
+        card.addEventListener('keydown', (e) => {
+            if (e.key !== 'Escape' || !card.classList.contains('is-flipped')) return;
+
+            card.classList.remove('is-flipped');
+            readMoreBtn.setAttribute('aria-expanded', 'false');
+            closeBtn.setAttribute('tabindex', '-1');
+            readMoreBtn.removeAttribute('tabindex');
+            readMoreBtn.focus();
+        });
+    });
+
     // Back to Top Button Logic
     const backToTopBtn = document.getElementById('backToTopBtn');
     
