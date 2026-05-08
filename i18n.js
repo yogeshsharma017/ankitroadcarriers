@@ -8,7 +8,7 @@
 
     const dict = {
         en: {
-            'meta.title':         "Ankit Road Carriers, Freight from the Port to Every Pin Code.",
+            'meta.title':         "Ankit Road Carriers",
             'brand.name':         "Ankit Road Carriers",
             'brand.tagline':      "Transport Operator · Commission Agent",
             'nav.home':           "Home",
@@ -67,7 +67,7 @@
             'footer.rights':      "© 2026 Ankit Road Carriers. All rights reserved.",
         },
         hi: {
-            'meta.title':         "अंकित रोड कैरियर्स, बंदरगाह से हर पिन कोड तक माल पहुँचाते हैं।",
+            'meta.title':         "अंकित रोड कैरियर्स",
             'brand.name':         "अंकित रोड कैरियर्स",
             'brand.tagline':      "ट्रांसपोर्ट ऑपरेटर · कमीशन एजेंट",
             'nav.home':           "होम",
