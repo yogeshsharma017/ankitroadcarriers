@@ -237,7 +237,7 @@ h1, h2, h3, h4 {
 }
 .page-title > span { display: block; }
 .page-title span:first-child {
-    color: var(--brand-red);
+    color: #FFFFFF;
 }
 
 .page-title .accent {
@@ -331,7 +331,7 @@ h1, h2, h3, h4 {
     font-family: var(--font-mono);
     font-size: 0.62rem;
     font-weight: 500;
-    color: var(--brand-red);
+    color: #FFFFFF;
     text-transform: uppercase;
     letter-spacing: 0.16em;
     margin-top: 2px;
@@ -1210,11 +1210,11 @@ html[lang="hi"] .anniversary-banner {
     position: fixed;
     bottom: 1.75rem;
     right: 1.75rem;
-    background: transparent;
-    color: var(--brand-red);
-    width: 46px; height: 46px;
+    background: var(--brand-red);
+    color: var(--ink-900);
+    width: 42px; height: 42px;
     border-radius: 50%;
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.15);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -1226,22 +1226,10 @@ html[lang="hi"] .anniversary-banner {
     z-index: 1000;
 }
 #backToTopBtn::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #B4122A, #8c0e21, #660a18);
-    z-index: -2;
-    transition: transform var(--transition);
+    content: none;
 }
 #backToTopBtn::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background: var(--ink-900);
-    z-index: -1;
-    transition: background var(--transition);
+    content: none;
 }
 #backToTopBtn svg {
     position: relative;
@@ -1252,13 +1240,9 @@ html[lang="hi"] .anniversary-banner {
 }
 @media (hover: hover) {
     #backToTopBtn:hover {
-        color: var(--ink-900);
-    }
-    #backToTopBtn:hover::after {
-        background: var(--brand-red);
-    }
-    #backToTopBtn:hover::before {
-        transform: scale(1.05);
+        background: #ffffff;
+        color: var(--brand-red);
+        border-color: #ffffff;
     }
 }
 
