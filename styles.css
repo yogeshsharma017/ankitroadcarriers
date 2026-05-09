@@ -533,7 +533,7 @@ html[lang="hi"] .anniversary-banner {
     justify-content: center;
     text-align: left;
 }
-.hero-content .eyebrow { color: var(--brand-red); margin-bottom: 1.25rem; }
+.hero-content .eyebrow { color: #FFFFFF; margin-bottom: 1.25rem; }
 .hero-content .eyebrow::before { background: var(--brand-red); }
 
 .hero-buttons {
