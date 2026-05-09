@@ -1356,15 +1356,7 @@ html[lang="hi"] .anniversary-banner {
     .carousel-wrapper { padding: 0 1.25rem; }
     .carousel-slide--prev, .carousel-slide--next { display: none; }
     .carousel-slide--active { aspect-ratio: 4/3; }
-    .carousel-btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 38px; height: 38px;
-        background: rgba(0, 0, 0, 0.75);
-    }
-    .carousel-btn--prev { left: 1.75rem; }
-    .carousel-btn--next { right: 1.75rem; }
+    .carousel-btn { display: none; }
     .founder-block {
         padding: 0.85rem 1.25rem 0.85rem 0.85rem;
         gap: 0.9rem;
