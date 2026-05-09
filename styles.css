@@ -1378,7 +1378,7 @@ html[lang="hi"] .anniversary-banner {
     .client-card { width: 150px; height: 88px; padding: 1rem; }
     .client-card--large-logo { padding: 0.6rem; }
 
-    .site-footer { padding: 1.25rem 0; }
+    .site-footer { padding: 1.25rem 0; font-size: 0.6rem; }
     .site-footer .footer-inner {
         flex-direction: row;
         justify-content: flex-start;
