@@ -203,73 +203,102 @@ document.addEventListener('DOMContentLoaded', () => {
         const prevPanel = carouselWrapper.querySelector('.carousel-slide--prev');
         const nextPanel = carouselWrapper.querySelector('.carousel-slide--next');
 
-        function getIndex(offset) {
-            return (currentIndex + offset + total) % total;
+        function getIndex(offset, index = currentIndex) {
+            return (index + offset + total) % total;
         }
 
         const allSlides = carouselWrapper.querySelectorAll('.carousel-slide');
+        let autoPlay = null;
+        let isHovered = false;
+        let transitionTimer = null;
+        const CAROUSEL_TRANSITION_MS = 800;
+        const CAROUSEL_VISIBLE_MS = 3000;
+        const CAROUSEL_AUTOPLAY_MS = CAROUSEL_VISIBLE_MS + (CAROUSEL_TRANSITION_MS * 2);
 
         function updateCarousel() {
             // Add transition class
             allSlides.forEach(s => s.classList.add('is-transitioning'));
+            const targetIndex = currentIndex;
 
-            setTimeout(() => {
-                prevSlide.src = carouselImages[getIndex(1)];
-                activeSlide.src = carouselImages[currentIndex];
-                nextSlide.src = carouselImages[getIndex(-1)];
+            if (transitionTimer) {
+                clearTimeout(transitionTimer);
+            }
+
+            transitionTimer = setTimeout(() => {
+                prevSlide.src = carouselImages[getIndex(-1, targetIndex)];
+                activeSlide.src = carouselImages[targetIndex];
+                nextSlide.src = carouselImages[getIndex(1, targetIndex)];
+                transitionTimer = null;
 
                 // Remove transition class to reveal
                 requestAnimationFrame(() => {
                     allSlides.forEach(s => s.classList.remove('is-transitioning'));
                 });
-            }, 800);
+            }, CAROUSEL_TRANSITION_MS);
         }
 
         function goNext() {
-            currentIndex = getIndex(-1);
-            updateCarousel();
-        }
-
-        function goPrev() {
             currentIndex = getIndex(1);
             updateCarousel();
         }
 
-        // Auto-play every 5 seconds
-        let autoPlay = setInterval(goNext, 5000);
+        function goPrev() {
+            currentIndex = getIndex(-1);
+            updateCarousel();
+        }
+
+        // Keep each image fully visible for about 3 seconds between transitions
+        function stopAutoPlay() {
+            if (autoPlay) {
+                clearInterval(autoPlay);
+                autoPlay = null;
+            }
+        }
+
+        function startAutoPlay() {
+            stopAutoPlay();
+            autoPlay = setInterval(goNext, CAROUSEL_AUTOPLAY_MS);
+        }
 
         function resetAutoPlay() {
-            clearInterval(autoPlay);
-            autoPlay = setInterval(goNext, 5000);
+            if (!isHovered) {
+                startAutoPlay();
+            }
         }
+
+        startAutoPlay();
 
         nextBtn.addEventListener('click', () => { goNext(); resetAutoPlay(); });
         prevBtn.addEventListener('click', () => { goPrev(); resetAutoPlay(); });
-        nextPanel.addEventListener('click', () => { goPrev(); resetAutoPlay(); });
-        prevPanel.addEventListener('click', () => { goNext(); resetAutoPlay(); });
+        nextPanel.addEventListener('click', () => { goNext(); resetAutoPlay(); });
+        prevPanel.addEventListener('click', () => { goPrev(); resetAutoPlay(); });
 
-        carouselWrapper.addEventListener('mouseenter', () => clearInterval(autoPlay));
+        carouselWrapper.addEventListener('mouseenter', () => {
+            isHovered = true;
+            stopAutoPlay();
+        });
         carouselWrapper.addEventListener('mouseleave', () => {
-            autoPlay = setInterval(goNext, 5000);
+            isHovered = false;
+            startAutoPlay();
         });
 
         // Touch swipe support
         let touchStartX = 0;
         carouselWrapper.addEventListener('touchstart', (e) => {
             touchStartX = e.changedTouches[0].screenX;
-            clearInterval(autoPlay);
+            stopAutoPlay();
         }, { passive: true });
         carouselWrapper.addEventListener('touchend', (e) => {
             const diff = touchStartX - e.changedTouches[0].screenX;
             if (Math.abs(diff) > 50) {
                 diff > 0 ? goNext() : goPrev();
             }
-            autoPlay = setInterval(goNext, 5000);
+            resetAutoPlay();
         }, { passive: true });
 
         // Initial load (no animation)
-        prevSlide.src = carouselImages[getIndex(1)];
+        prevSlide.src = carouselImages[getIndex(-1)];
         activeSlide.src = carouselImages[currentIndex];
-        nextSlide.src = carouselImages[getIndex(-1)];
+        nextSlide.src = carouselImages[getIndex(1)];
     }
 });
