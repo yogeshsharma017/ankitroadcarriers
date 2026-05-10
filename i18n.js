@@ -69,7 +69,7 @@
             'footer.rights':      "© 2026 Ankit Road Carriers. All rights reserved.",
         },
         hi: {
-            'meta.title':         "अंकित रोड कैरियर्स",
+            'meta.title':         "Ankit Road Carriers",
             'brand.name':         "अंकित रोड कैरियर्स",
             'brand.tagline':      "ट्रांसपोर्ट ऑपरेटर · कमीशन एजेंट",
             'nav.home':           "होम",
