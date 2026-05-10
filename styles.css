@@ -1181,12 +1181,13 @@ html[lang="hi"] .anniversary-banner {
 .site-footer {
     padding: 2.5rem 0 2rem;
     background: var(--ink-900);
-    color: #FFFFFF;
+    color: rgba(255, 255, 255, 0.8);
     font-size: 0.72rem;
-    font-family: var(--font-mono);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-style: normal;
+    text-transform: none;
+    letter-spacing: normal;
 }
 .site-footer .footer-inner {
     display: flex;
